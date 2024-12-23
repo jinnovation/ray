@@ -1054,6 +1054,13 @@ def test_max_ongoing_requests_none(serve_instance):
     serve.run(serve.deployment(A).options(max_ongoing_requests=12).bind())
     assert get_max_ongoing_requests() == 12
 
+def test_multiplexed_bad_signature(serve_instance):
+    with pytest.raises(TypeError):
+        def func(foo, bar, baz):
+            return 1
+
+        serve.multiplexed(func)
+
 
 if __name__ == "__main__":
     import sys
